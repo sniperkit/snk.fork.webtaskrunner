@@ -10,7 +10,6 @@ import (
 )
 
 // New returns a new instance of WebSocketHandler
-
 func New(integration integrations.Integration) *WebSocketHandler {
 	return &WebSocketHandler{
 		integration: integration,
