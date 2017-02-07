@@ -1,24 +1,28 @@
 package websocket_handler
 
 import (
-	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"golang.org/x/net/websocket"
 	"fmt"
 	"github.com/Oppodelldog/webtaskrunner/execution"
-	"net/http"
+	"github.com/Oppodelldog/webtaskrunner/integrations"
+	"golang.org/x/net/websocket"
 	"log"
+	"net/http"
 )
+
+// New returns a new instance of WebSocketHandler
 
 func New(integration integrations.Integration) *WebSocketHandler {
 	return &WebSocketHandler{
-		integration : integration,
+		integration: integration,
 	}
 }
 
+// WebSocketHandler provides an websocket connection over which a task command may be started on the server.
 type WebSocketHandler struct {
 	integration integrations.Integration
 }
 
+// GetHandler returns the websocket http.Handler
 func (h *WebSocketHandler) GetHandler() http.Handler {
 	return websocket.Handler(h.commandHandler)
 }
@@ -45,4 +49,3 @@ func (h *WebSocketHandler) commandHandler(ws *websocket.Conn) {
 		}
 	}
 }
-

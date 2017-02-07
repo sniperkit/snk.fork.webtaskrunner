@@ -1,12 +1,14 @@
 package execution
 
 import (
-	"os/exec"
-	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"bytes"
 	"fmt"
+	"github.com/Oppodelldog/webtaskrunner/integrations"
+	"os/exec"
 )
 
+// ExecuteTask executes the given taskName using the given integration
+// the stdout of the task will be sent continuously to stdoutChannel
 func ExecuteTask(taskName string, integration integrations.Integration, stdoutChannel chan string) {
 
 	cmd := integration.PrepareCommand(taskName)
@@ -67,4 +69,3 @@ func processOutputs(stdOutWriter *bytes.Buffer, stdErrWriter *bytes.Buffer, stdo
 		stdoutChannel <- string(b)
 	}
 }
-

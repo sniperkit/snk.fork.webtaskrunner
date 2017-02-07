@@ -1,24 +1,28 @@
 package integrations
 
 import (
-	"os/exec"
 	"bufio"
 	"bytes"
 	"fmt"
+	"os/exec"
 	"strings"
 )
 
+//NewAntIntegration returns a new instance of the ant integration wrapper.
 func NewAntIntegration() *AntIntegration {
 	return &AntIntegration{}
 }
 
+//AntIntegration implements the integration interface.
 type AntIntegration struct{}
 
+//PrepareCommand prepares an exec.Cmd so that it will start the given task when executed
 func (i *AntIntegration) PrepareCommand(taskName string) *exec.Cmd {
 	cmd := exec.Command("ant", taskName)
 	return cmd
 }
 
+//GetTaskList returns as list of tasks
 func (i *AntIntegration) GetTaskList() []string {
 	stdOutBytes, err := exec.Command("ant", "-p", "build.xml").Output()
 
