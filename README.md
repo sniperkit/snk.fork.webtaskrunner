@@ -1,5 +1,7 @@
 # webtaskrunner
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Oppodelldog/webtaskrunner)](https://goreportcard.com/report/github.com/Oppodelldog/webtaskrunner)
+
 webtaskrunner is intended to help you during development by letting you
 execute tasks via a webfrontend.
 
