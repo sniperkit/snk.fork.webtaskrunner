@@ -1,0 +1,78 @@
+<project>
+
+    <target name="test123">
+        <exec executable="echo">
+            <arg value="1"></arg>
+        </exec>
+        <exec executable="sleep">
+            <arg value="1"/>
+        </exec>
+        <exec executable="echo">
+            <arg value="2"></arg>
+        </exec>
+        <exec executable="sleep">
+            <arg value="1"/>
+        </exec>
+        <exec executable="echo2">
+            <arg value="3"></arg>
+        </exec>
+    </target>
+
+    <target name="test321">
+        <exec executable="echo">
+            <arg value="3"></arg>
+        </exec>
+        <exec executable="sleep">
+            <arg value="3"/>
+        </exec>
+        <exec executable="echo">
+            <arg value="2"></arg>
+        </exec>
+        <exec executable="sleep">
+            <arg value="2"/>
+        </exec>
+        <exec executable="echo">
+            <arg value="1"></arg>
+        </exec>
+    </target>
+
+    <target name="recreate-caches-after-fresh-restart-only"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test2"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test3"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test4"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test5"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test6"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test7"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test8"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test9"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test10"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test11"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test12"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test13"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test14"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test15"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test16"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test17"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test18"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test19"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test20"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test21"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test22"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test23"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test24"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test25"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test26"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test27"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test28"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test29"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test30"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test31"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test32"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test33"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test34"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test35"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test36"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test37"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test38"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test39"><exec executable="echo"><arg value="X"></arg></exec></target>
+    <target name="test40"><exec executable="echo"><arg value="X"></arg></exec></target></project>
