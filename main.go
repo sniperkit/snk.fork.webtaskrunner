@@ -1,12 +1,12 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
-	"io/ioutil"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"github.com/Oppodelldog/webtaskrunner/websocket_handler"
 	"github.com/Oppodelldog/webtaskrunner/task_list_handler"
+	"github.com/Oppodelldog/webtaskrunner/websocket_handler"
+	"io/ioutil"
+	"net/http"
 )
 
 func main() {
@@ -22,13 +22,13 @@ func main() {
 
 func addIntegration(integrationPath string, integration integrations.Integration) {
 
-	http.HandleFunc("/" + integrationPath, indexHandler)
+	http.HandleFunc("/"+integrationPath, indexHandler)
 
 	taskListHandler := task_list_handler.New(integration)
-	http.Handle("/" + integrationPath + "/tasks", taskListHandler)
+	http.Handle("/"+integrationPath+"/tasks", taskListHandler)
 
 	webSocketHandler := websocket_handler.New(integration)
-	http.Handle("/" + integrationPath + "/cmd", webSocketHandler.GetHandler())
+	http.Handle("/"+integrationPath+"/cmd", webSocketHandler.GetHandler())
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,5 +36,3 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(err)
 	w.Write(b)
 }
-
-
