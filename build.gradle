@@ -1,0 +1,4 @@
+
+task test123(type: Exec) {
+    commandLine 'echo', '1'
+}
