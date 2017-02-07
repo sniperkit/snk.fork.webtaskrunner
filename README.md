@@ -1,7 +1,5 @@
 # webtaskrunner
 
-quite hacky at the moment
-
 webtaskrunner is intended to help you during development by letting you
 execute tasks via a webfrontend.
 
@@ -18,3 +16,8 @@ startup server on port :8080 with
     go run main.go
     
 build.xml must be in working dir
+
+
+add custom integrations:
+ * adding a go file in integrations folder, implement interface.
+ * add integration in main func
