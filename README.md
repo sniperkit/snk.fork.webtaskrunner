@@ -2,24 +2,21 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/Oppodelldog/webtaskrunner)](https://goreportcard.com/report/github.com/Oppodelldog/webtaskrunner)
 
-webtaskrunner is intended to help you during development by letting you
-execute tasks via a webfrontend.
+Webtaskrunner is intended to help you during development by letting you execute tasks via a webfrontend.
 
-set it up in your vagrant devbox or docker container and execute some
-tasks when needed.
+Set it up in your vagrant devbox or docker container and execute sometasks when needed.
 
-this working prototyp supports ant and it's build.xml file.
-
-app.js contains all client logic
-main.go currently contains all server logic :-)
-
-startup server on port :8080 with
+####Startup
+Startup the server on port :8080 with
 
     go run main.go
     
-build.xml must be in working dir
+Then navigate to http://localhost:8080/ant
 
+currently just ant is implemented.
+The build.xml must reside in the working directory of the application.
 
-add custom integrations:
- * adding a go file in integrations folder, implement interface.
- * add integration in main func
+####Add custom integrations:
+
+* adding a go file in integrations folder, implement interface.
+* add integration in main func
