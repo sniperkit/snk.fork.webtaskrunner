@@ -13,15 +13,10 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH=/go
 
 #
-# Install Java.
+# Install default jdk
 #
 RUN \
-  apt-get update && \
-  apt-get install -y openjdk-8-jre
-
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-
+    apt-get install -y default-jdk
 
 #
 # Install ant
