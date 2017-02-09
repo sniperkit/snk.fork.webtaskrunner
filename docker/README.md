@@ -12,7 +12,7 @@ In order to work
 
 ###run webtaskrunner
     
-    docker run -it  -v $(pwd)/..:/webtaskrunner -v $(echo $GOPATH)/src:/go/src/ -p 8080:8080 webtaskrunner-dev /bin/bash -c "go run main.go"
+    docker run -it  -v $(pwd)/..:/webtaskrunner -v $(echo $GOPATH)/src:/go/src/ -p 3000:3000 webtaskrunner-dev /bin/bash -c "gin"
     
 then open http://localhost:8080/ant
 

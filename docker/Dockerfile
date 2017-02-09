@@ -4,13 +4,18 @@ FROM ubuntu:16.04
 #
 RUN \
     apt-get update && \
-    apt-get install -y wget
-RUN \
+    apt-get install -y wget && \
+    apt-get install -y git && \
     wget https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz -O go1.7.5.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.7.5.linux-amd64.tar.gz && \
     rm go1.7.5.linux-amd64.tar.gz
 ENV PATH="/usr/local/go/bin:${PATH}"
+ENV PATH="/go/bin:${PATH}"
 ENV GOPATH=/go
+
+# Define working directory.
+WORKDIR /webtaskrunner
+RUN go get github.com/codegangsta/gin
 
 #
 # Install default jdk
@@ -56,9 +61,6 @@ RUN \
     npm install -g gulp && \
     npm install -g gulp-cli
 
-
-# Define working directory.
-WORKDIR /webtaskrunner
 
 
 # Define default command.
