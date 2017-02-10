@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/Oppodelldog/webtaskrunner/ajaxhandler"
 	"github.com/Oppodelldog/webtaskrunner/config"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"github.com/Oppodelldog/webtaskrunner/webhandler/ajaxhandler"
-	"github.com/Oppodelldog/webtaskrunner/webhandler/websockethandler"
+	"github.com/Oppodelldog/webtaskrunner/websockethandler"
 	"io/ioutil"
 	"net/http"
 	"os"
