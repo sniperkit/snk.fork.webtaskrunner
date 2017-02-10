@@ -1,4 +1,4 @@
-package websocket_handler
+package websockethandler
 
 import (
 	"fmt"

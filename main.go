@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/Oppodelldog/webtaskrunner/config"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"github.com/Oppodelldog/webtaskrunner/task_list_handler"
-	"github.com/Oppodelldog/webtaskrunner/websocket_handler"
+	"github.com/Oppodelldog/webtaskrunner/webhandler/ajaxhandler"
+	"github.com/Oppodelldog/webtaskrunner/webhandler/websockethandler"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -40,10 +40,10 @@ func addIntegration(integrationPath string, integration integrations.Integration
 
 	http.HandleFunc("/"+integrationPath, indexHandler)
 
-	taskListHandler := task_list_handler.New(integration)
+	taskListHandler := ajaxhandler.New(integration)
 	http.Handle("/"+integrationPath+"/tasks", taskListHandler)
 
-	webSocketHandler := websocket_handler.New(integration)
+	webSocketHandler := websockethandler.New(integration)
 	http.Handle("/"+integrationPath+"/cmd", webSocketHandler.GetHandler())
 }
 
