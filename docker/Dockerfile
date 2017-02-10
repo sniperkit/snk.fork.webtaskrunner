@@ -21,6 +21,7 @@ RUN go get github.com/codegangsta/gin
 # Install default jdk
 #
 RUN \
+    apt-get update && \
     apt-get install -y default-jdk
 
 #
@@ -52,7 +53,12 @@ RUN \
 #
 RUN \
     npm install -g grunt && \
-    npm install -g grunt-cli
+    npm install -g grunt-cli && \
+    cd /webtaskrunner && \
+    npm install grunt-cli && \
+    npm install grunt && \
+    npm install grunt-exec --save-dev
+
 
 #
 # Install gulp
@@ -60,7 +66,6 @@ RUN \
 RUN \
     npm install -g gulp && \
     npm install -g gulp-cli
-
 
 
 # Define default command.

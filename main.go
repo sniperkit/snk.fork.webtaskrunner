@@ -18,6 +18,7 @@ func main() {
 	// add custom integrations here, and in integrations package of course
 	addIntegration("ant", integrations.NewAntIntegration())
 	addIntegration("gradle", integrations.NewGradleIntegration())
+	addIntegration("grunt", integrations.NewGruntIntegration())
 
 	http.ListenAndServe(":" + getPort(), nil)
 }
