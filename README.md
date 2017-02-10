@@ -4,7 +4,7 @@
 
 Webtaskrunner is intended to help you during development by letting you execute tasks via a webfrontend.
 
-Set it up in your vagrant devbox or docker container and execute sometasks when needed.
+Set it up in your vagrant devbox or docker container and execute some tasks when needed.
 
 ####Startup
 Startup the server on port :8080 with
@@ -13,10 +13,12 @@ Startup the server on port :8080 with
     
 Then navigate to http://localhost:8080/ant
 
-currently just ant is implemented.
-The build.xml must reside in the working directory of the application.
+Currently **ant**,**gradle** and **grunt** are integrated.
+The appropriate build files must reside in the working directory of the application.
+
 
 ####Add custom integrations:
+Is there a build tool, that is yet not supported?
 
-* adding a go file in integrations folder, implement interface.
+* add a go file in integrations folder, implement the 'integration' interface.
 * add integration in main func
