@@ -13,7 +13,7 @@ Startup the server on port :8080 with
     
 Then navigate to http://localhost:8080/ant
 
-Currently **ant**,**gradle**, **grunt** and **gulp** are integrated. 
+Currently **ant**, **gradle**, **grunt** and **gulp** are integrated. 
 The appropriate build files must reside in the working directory of the application.
 For gulp and grunt the location of the buildfile can be configured in webtaskrunner.yaml.
 
