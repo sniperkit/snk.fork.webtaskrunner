@@ -17,6 +17,7 @@ func main() {
 
 	// add custom integrations here, and in integrations package of course
 	addIntegration("ant", integrations.NewAntIntegration())
+	addIntegration("gradle", integrations.NewGradleIntegration())
 
 	http.ListenAndServe(":" + getPort(), nil)
 }
