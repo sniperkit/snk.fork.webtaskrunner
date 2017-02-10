@@ -1,3 +1,7 @@
 grunt:
   execution_dir: "/node_build_tools"
-  gruntfile_path: "/webtaskrunner"
+  gruntfile_path: "/node_build_tools"
+
+gulp:
+  execution_dir: "/node_build_tools"
+  gulpfile_path: "/node_build_tools"

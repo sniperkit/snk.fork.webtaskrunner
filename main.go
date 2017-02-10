@@ -11,6 +11,8 @@ import (
 	"os"
 )
 
+var integrationRoutes = []string{}
+
 func main() {
 	conf, err := config.Load()
 	if err != nil {
@@ -24,6 +26,7 @@ func main() {
 	addIntegration("ant", integrations.NewAntIntegration())
 	addIntegration("gradle", integrations.NewGradleIntegration())
 	addIntegration("grunt", integrations.NewGruntIntegration(conf.Grunt))
+	addIntegration("gulp", integrations.NewGulpIntegration(conf.Gulp))
 
 	http.ListenAndServe(":"+getPort(), nil)
 }
@@ -45,6 +48,8 @@ func addIntegration(integrationPath string, integration integrations.Integration
 
 	webSocketHandler := websockethandler.New(integration)
 	http.Handle("/"+integrationPath+"/cmd", webSocketHandler.GetHandler())
+
+	integrationRoutes = append(integrationRoutes, integrationPath)
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {

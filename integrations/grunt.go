@@ -48,6 +48,12 @@ func (i *GruntIntegration) GetTaskList() []string {
 		fmt.Println(string(stdOutBytes))
 		return []string{}
 	}
+	targets := i.scanTasksFromOutput(stdOutBytes)
+
+	return targets
+}
+
+func (i *GruntIntegration) scanTasksFromOutput(stdOutBytes []byte) []string {
 
 	bScanTasks := false
 	targets := []string{}

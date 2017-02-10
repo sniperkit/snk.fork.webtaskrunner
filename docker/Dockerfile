@@ -52,21 +52,23 @@ RUN \
 # Install grunt
 #
 ADD provision/package.json /node_build_tools/package.json
+ADD provision/Gruntfile.js /node_build_tools/Gruntfile.js
 RUN \
     npm install -g grunt && \
     npm install -g grunt-cli && \
     cd /node_build_tools && \
     npm install grunt && \
     npm install grunt-exec
-
-
 #
 # Install gulp
 #
+ADD provision/gulpfile.js /node_build_tools/gulpfile.js
 RUN \
     npm install -g gulp && \
-    npm install -g gulp-cli
-
+    npm install -g gulp-cli && \
+    cd /node_build_tools && \
+    npm install gulp && \
+    npm install gulp-exec
 
 # Define default command.
 CMD ["bash"]
