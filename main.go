@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/Oppodelldog/webtaskrunner/config"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"github.com/Oppodelldog/webtaskrunner/task_list_handler"
 	"github.com/Oppodelldog/webtaskrunner/websocket_handler"
@@ -11,6 +12,10 @@ import (
 )
 
 func main() {
+	conf, err := config.Load()
+	if err != nil {
+		panic(err)
+	}
 
 	fs := http.FileServer(http.Dir("web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -18,7 +23,7 @@ func main() {
 	// add custom integrations here, and in integrations package of course
 	addIntegration("ant", integrations.NewAntIntegration())
 	addIntegration("gradle", integrations.NewGradleIntegration())
-	addIntegration("grunt", integrations.NewGruntIntegration())
+	addIntegration("grunt", integrations.NewGruntIntegration(conf.Grunt))
 
 	http.ListenAndServe(":"+getPort(), nil)
 }

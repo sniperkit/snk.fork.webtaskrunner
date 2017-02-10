@@ -1,0 +1,3 @@
+grunt:
+  execution_dir: "/node_build_tools"
+  gruntfile_path: "/webtaskrunner"

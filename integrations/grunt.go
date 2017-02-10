@@ -4,31 +4,49 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
+	"path"
 	"regexp"
 	"strings"
 )
 
 //NewGruntIntegration returns a new instance of the grunt integration wrapper.
-func NewGruntIntegration() *GruntIntegration {
-	return &GruntIntegration{}
+func NewGruntIntegration(config config.GruntConfig) *GruntIntegration {
+	return &GruntIntegration{
+		config: &config,
+	}
 }
 
 //GruntIntegration implements the integration interface.
-type GruntIntegration struct{}
+type GruntIntegration struct {
+	config *config.GruntConfig
+}
+
+func (i *GruntIntegration) getGruntFileParameters() (string, string) {
+	if i.config.GruntFilePath != "" {
+		return "--gruntfile", path.Join(i.config.GruntFilePath, "Gruntfile.js")
+	}
+	return "", ""
+}
 
 //PrepareCommand prepares an exec.Cmd so that it will start the given task when executed
 func (i *GruntIntegration) PrepareCommand(taskName string) *exec.Cmd {
-	cmd := exec.Command("grunt", taskName)
+	gruntFileFlag, gruntFilePath := i.getGruntFileParameters()
+	cmd := exec.Command("grunt", gruntFileFlag, gruntFilePath, taskName)
+	cmd.Dir = i.config.ExecutionDir
 	return cmd
 }
 
 //GetTaskList returns as list of tasks
 func (i *GruntIntegration) GetTaskList() []string {
-	stdOutBytes, err := exec.Command("grunt", "--help").Output()
-
+	gruntFileFlag, gruntFilePath := i.getGruntFileParameters()
+	cmd := exec.Command("grunt", gruntFileFlag, gruntFilePath, "--help")
+	cmd.Dir = i.config.ExecutionDir
+	stdOutBytes, err := cmd.Output()
 	if err != nil {
-		panic(err)
+		fmt.Println(string(stdOutBytes))
+		return []string{}
 	}
 
 	bScanTasks := false
@@ -36,7 +54,7 @@ func (i *GruntIntegration) GetTaskList() []string {
 	scanner := bufio.NewScanner(bytes.NewBuffer(stdOutBytes))
 	for scanner.Scan() {
 		stdOutLine := scanner.Text()
-		//fmt.Println(stdOutLine)
+		fmt.Println(stdOutLine)
 		if strings.Contains(stdOutLine, "Available tasks") {
 			bScanTasks = true
 			continue
@@ -46,7 +64,9 @@ func (i *GruntIntegration) GetTaskList() []string {
 				bScanTasks = false
 			} else {
 				taskInfo := i.parseTaskInfo(stdOutLine)
-				targets = append(targets, taskInfo.TaskName)
+				if taskInfo != nil {
+					targets = append(targets, taskInfo.TaskName)
+				}
 			}
 		}
 	}
@@ -56,10 +76,11 @@ func (i *GruntIntegration) GetTaskList() []string {
 
 func (i *GruntIntegration) parseTaskInfo(s string) *TaskInfo {
 	re := regexp.MustCompile("^\\s*(?P<taskName>\\w+)\\s*(?P<description>.*)$")
+	if !re.MatchString(s) {
+		return nil
+	}
 	subMatches := re.FindAllStringSubmatch(s, -1)[0]
-	fmt.Println(subMatches)
 	names := re.SubexpNames()
-	fmt.Println(names)
 	taskInfo := TaskInfo{}
 	for i, n := range subMatches {
 		name := names[i]

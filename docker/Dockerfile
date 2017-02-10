@@ -51,13 +51,13 @@ RUN \
 #
 # Install grunt
 #
+ADD provision/package.json /node_build_tools/package.json
 RUN \
     npm install -g grunt && \
     npm install -g grunt-cli && \
-    cd /webtaskrunner && \
-    npm install grunt-cli && \
+    cd /node_build_tools && \
     npm install grunt && \
-    npm install grunt-exec --save-dev
+    npm install grunt-exec
 
 
 #
