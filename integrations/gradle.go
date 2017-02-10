@@ -1,9 +1,9 @@
 package integrations
 
 import (
-	"os/exec"
 	"bufio"
 	"bytes"
+	"os/exec"
 	"regexp"
 )
 

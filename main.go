@@ -20,7 +20,7 @@ func main() {
 	addIntegration("gradle", integrations.NewGradleIntegration())
 	addIntegration("grunt", integrations.NewGruntIntegration())
 
-	http.ListenAndServe(":" + getPort(), nil)
+	http.ListenAndServe(":"+getPort(), nil)
 }
 
 func getPort() string {
@@ -33,13 +33,13 @@ func getPort() string {
 
 func addIntegration(integrationPath string, integration integrations.Integration) {
 
-	http.HandleFunc("/" + integrationPath, indexHandler)
+	http.HandleFunc("/"+integrationPath, indexHandler)
 
 	taskListHandler := task_list_handler.New(integration)
-	http.Handle("/" + integrationPath + "/tasks", taskListHandler)
+	http.Handle("/"+integrationPath+"/tasks", taskListHandler)
 
 	webSocketHandler := websocket_handler.New(integration)
-	http.Handle("/" + integrationPath + "/cmd", webSocketHandler.GetHandler())
+	http.Handle("/"+integrationPath+"/cmd", webSocketHandler.GetHandler())
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
