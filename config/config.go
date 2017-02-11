@@ -5,6 +5,7 @@ type Config struct {
 	Integrations Integrations `yaml:"integrations"`
 }
 
+//Integrations represents a static list of configured integrations
 type Integrations struct {
 	Ant    *AntConfig    `yaml:"ant"`
 	Gradle *GradleConfig `yaml:"gradle"`
@@ -12,6 +13,7 @@ type Integrations struct {
 	Gulp   *GulpConfig   `yaml:"gulp"`
 }
 
+//FrontendInfo contains the configuration for one integration in frontend
 type FrontendInfo struct {
 	ImageUrl string `yaml:"imageUrl"`
 	Name     string `yaml:"name"`

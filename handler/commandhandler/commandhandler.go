@@ -74,17 +74,8 @@ func (h *WebSocketHandler) commandHandler(ws *websocket.Conn) {
 	}
 }
 
-type ResponseLine struct {
-	Status int
-	Line   string
-}
-type ResponseError struct {
-	Status int
-	Error  string
-}
-
 func (h *WebSocketHandler) writeErrorLine(err error, ws *websocket.Conn) {
-	responseLine := ResponseError{
+	responseLine := responseError{
 		Status: 2,
 		Error:  string(err.Error()),
 	}
@@ -93,7 +84,7 @@ func (h *WebSocketHandler) writeErrorLine(err error, ws *websocket.Conn) {
 	ws.Write(jsonResponseLine)
 }
 func (h *WebSocketHandler) writeLogLine(lineBytes []byte, ws *websocket.Conn) {
-	responseLine := ResponseLine{
+	responseLine := responseLine{
 		Status: 1,
 		Line:   string(lineBytes),
 	}
