@@ -76,3 +76,9 @@ ul.tasklist li:hover {
   background-color: #d1d1d1;
   color: #fff;
 }
+
+
+.executor .error{
+    display:block;
+    border:2px solid red;
+}

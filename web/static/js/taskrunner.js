@@ -20,7 +20,13 @@ Vue.component('executor', {
         };
 
         connection.onmessage = function (e) {
-            self.data.combinedOutput += e.data;
+            response  = JSON.parse(e.data);
+            if(response.Status==1){
+                self.data.combinedOutput += response.Line;
+            }else if(response.Status==2){
+                self.data.error = response.Error;
+            }
+            console.log(response);
         };
 
         connection.onclose = function (e) {
@@ -45,6 +51,7 @@ Vue.component('task', {
                     taskName: this.data.name,
                     combinedOutput:"",
                     status:"",
+                    error:"",
                 };
             this.data.executor = newExecutor;
             this.$parent.startExecutor(newExecutor);
@@ -64,7 +71,7 @@ new Vue({
     this.$http.get(location.pathname + '/tasks')
         .then(function(response){
             if(response.ok){
-                tasks = response.body;
+                var tasks = response.body;
                 for(k in tasks){
                     var newTask={
                         name:tasks[k],

@@ -2,14 +2,13 @@ package execution
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"os/exec"
 )
 
 // ExecuteTask executes the given taskName using the given integration
 // the stdout of the task will be sent continuously to stdoutChannel
-func ExecuteTask(taskName string, integration integrations.Integration, stdoutChannel chan string) {
+func ExecuteTask(taskName string, integration integrations.Integration, stdoutChannel chan byte, errorChannel chan error) {
 
 	cmd := integration.PrepareCommand(taskName)
 
@@ -21,25 +20,33 @@ func ExecuteTask(taskName string, integration integrations.Integration, stdoutCh
 	cmd.Stderr = stdErrWriter
 	cmd.Stdout = stdOutWriter
 	errChannel := make(chan error)
-
+	var errValue error
+	finished := false
 	go runCommand(cmd, errChannel)
 
 	for {
 		select {
 		case err := <-errChannel:
 			if err != nil {
-				fmt.Println("ERROR !!!", err)
-			} else {
-				fmt.Println("Finished")
+				errValue = err
 			}
 			processOutputs(stdOutWriter, stdErrWriter, stdoutChannel)
-			close(stdoutChannel)
-			return
+			finished = true
+			break
 		default:
 			processOutputs(stdOutWriter, stdErrWriter, stdoutChannel)
 		}
-	}
 
+		if finished {
+			if errValue != nil {
+				errorChannel <- errValue
+			}
+			close(errorChannel)
+			close(stdoutChannel)
+
+			break
+		}
+	}
 }
 
 func runCommand(cmd *exec.Cmd, errChannel chan error) {
@@ -51,21 +58,26 @@ func runCommand(cmd *exec.Cmd, errChannel chan error) {
 	close(errChannel)
 }
 
-func processOutputs(stdOutWriter *bytes.Buffer, stdErrWriter *bytes.Buffer, stdoutChannel chan string) {
+func processOutputs(stdOutWriter *bytes.Buffer, stdErrWriter *bytes.Buffer, stdoutChannel chan byte) {
 	if stdOutWriter.Len() > 0 {
-		b := make([]byte, stdOutWriter.Len())
-		_, err := stdOutWriter.Read(b)
+		bytes := make([]byte, stdOutWriter.Len())
+		_, err := stdOutWriter.Read(bytes)
 		if err != nil {
 			panic(err)
 		}
-		stdoutChannel <- string(b)
+		for _, b := range bytes {
+			stdoutChannel <- b
+		}
+
 	}
 	if stdErrWriter.Len() > 0 {
-		b := make([]byte, stdErrWriter.Len())
-		_, err := stdErrWriter.Read(b)
+		bytes := make([]byte, stdErrWriter.Len())
+		_, err := stdErrWriter.Read(bytes)
 		if err != nil {
 			panic(err)
 		}
-		stdoutChannel <- string(b)
+		for _, b := range bytes {
+			stdoutChannel <- b
+		}
 	}
 }

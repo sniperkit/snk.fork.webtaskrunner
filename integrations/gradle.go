@@ -3,17 +3,22 @@ package integrations
 import (
 	"bufio"
 	"bytes"
+	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"regexp"
 )
 
 //NewGradleIntegration returns a new instance of the Gradle integration wrapper.
-func NewGradleIntegration() *GradleIntegration {
-	return &GradleIntegration{}
+func NewGradleIntegration(config *config.GradleConfig) *GradleIntegration {
+	return &GradleIntegration{
+		config: config,
+	}
 }
 
 //GradleIntegration implements the integration interface.
-type GradleIntegration struct{}
+type GradleIntegration struct {
+	config *config.GradleConfig
+}
 
 //PrepareCommand prepares an exec.Cmd so that it will start the given task when executed
 func (i *GradleIntegration) PrepareCommand(taskName string) *exec.Cmd {

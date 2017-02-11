@@ -12,9 +12,9 @@ import (
 )
 
 //NewGruntIntegration returns a new instance of the grunt integration wrapper.
-func NewGruntIntegration(config config.GruntConfig) *GruntIntegration {
+func NewGruntIntegration(config *config.GruntConfig) *GruntIntegration {
 	return &GruntIntegration{
-		config: &config,
+		config: config,
 	}
 }
 

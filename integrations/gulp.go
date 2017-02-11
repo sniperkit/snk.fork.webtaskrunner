@@ -10,9 +10,9 @@ import (
 )
 
 //NewGulpIntegration returns a new instance of the gulp integration wrapper.
-func NewGulpIntegration(config config.GulpConfig) *GulpIntegration {
+func NewGulpIntegration(config *config.GulpConfig) *GulpIntegration {
 	return &GulpIntegration{
-		config: &config,
+		config: config,
 	}
 }
 

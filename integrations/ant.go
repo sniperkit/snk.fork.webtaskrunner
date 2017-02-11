@@ -4,17 +4,22 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"strings"
 )
 
 //NewAntIntegration returns a new instance of the ant integration wrapper.
-func NewAntIntegration() *AntIntegration {
-	return &AntIntegration{}
+func NewAntIntegration(config *config.AntConfig) *AntIntegration {
+	return &AntIntegration{
+		config: config,
+	}
 }
 
 //AntIntegration implements the integration interface.
-type AntIntegration struct{}
+type AntIntegration struct {
+	config *config.AntConfig
+}
 
 //PrepareCommand prepares an exec.Cmd so that it will start the given task when executed
 func (i *AntIntegration) PrepareCommand(taskName string) *exec.Cmd {

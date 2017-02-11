@@ -1,7 +1,29 @@
-grunt:
+integrations:
+
+ ant:
+  frontend:
+   imageUrl: "static/images/ant.svg"
+   name: "ant"
+   route: "ant"
+
+ gradle:
+  frontend:
+   imageUrl: "static/images/gradle.png"
+   name: "gradle"
+   route: "gradle"
+
+ grunt:
+  frontend:
+   imageUrl: "static/images/grunt.png"
+   name: "grunt"
+   route: "grunt"
   execution_dir: "/node_build_tools"
   gruntfile_path: "/node_build_tools"
 
-gulp:
+ gulp:
+  frontend:
+   imageUrl: "static/images/gulp.png"
+   name: "gulp"
+   route: "gulp"
   execution_dir: "/node_build_tools"
   gulpfile_path: "/node_build_tools"
