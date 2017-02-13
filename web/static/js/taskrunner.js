@@ -35,7 +35,7 @@ Vue.component('executor', {
             };
         },
         ansiUp: function (value) {
-            return ansi_up.ansi_to_html(value);
+            return ansi_up.ansi_to_html(ansi_up.escape_for_html(value));
         },
         htmlCarriageReturn: function (value) {
             return value.replace(new RegExp('\n', 'g'), "<br>");
