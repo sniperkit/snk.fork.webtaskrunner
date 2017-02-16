@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"github.com/Oppodelldog/webtaskrunner/config"
 	"github.com/Oppodelldog/webtaskrunner/handler/commandhandler"
-	"github.com/Oppodelldog/webtaskrunner/handler/tasklisthandler"
-	"github.com/Oppodelldog/webtaskrunner/handler/taskrunnerlisthandler"
+	"github.com/Oppodelldog/webtaskrunner/handler/taskshandler"
 	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +12,7 @@ import (
 )
 
 var frontendConfigs = []*config.FrontendInfo{}
+var configuredIntegrations []integrations.Integration
 
 func main() {
 	conf, err := config.Load()
@@ -20,7 +20,7 @@ func main() {
 		panic(err)
 	}
 
-	http.HandleFunc("/", overviewHandler)
+	http.HandleFunc("/", indexPageHandler)
 
 	fs := http.FileServer(http.Dir("web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -39,7 +39,8 @@ func main() {
 		addIntegration(conf.Integrations.Gulp.FrontendInfo, integrations.NewGulpIntegration(conf.Integrations.Gulp))
 	}
 
-	http.Handle("/taskrunners", taskrunnerlisthandler.New(frontendConfigs))
+	webSocketHandler := taskshandler.New(configuredIntegrations)
+	http.Handle("/tasklist", webSocketHandler.GetHandler())
 
 	http.ListenAndServe(":"+getPort(), nil)
 }
@@ -56,25 +57,16 @@ func addIntegration(frontendConfiguration *config.FrontendInfo, integration inte
 
 	integrationPath := frontendConfiguration.Route
 
-	http.HandleFunc("/"+integrationPath, taskRunnerHandler)
-
-	taskListHandler := tasklisthandler.New(integration)
-	http.Handle("/"+integrationPath+"/tasks", taskListHandler)
-
 	webSocketHandler := commandhandler.New(integration)
 	http.Handle("/"+integrationPath+"/cmd", webSocketHandler.GetHandler())
 
 	frontendConfigs = append(frontendConfigs, frontendConfiguration)
+
+	configuredIntegrations = append(configuredIntegrations, integration)
 }
 
-func taskRunnerHandler(w http.ResponseWriter, r *http.Request) {
+func indexPageHandler(w http.ResponseWriter, r *http.Request) {
 	b, err := ioutil.ReadFile("web/templates/taskrunner.html")
-	fmt.Println(err)
-	w.Write(b)
-}
-
-func overviewHandler(w http.ResponseWriter, r *http.Request) {
-	b, err := ioutil.ReadFile("web/templates/overview.html")
 	fmt.Println(err)
 	w.Write(b)
 }

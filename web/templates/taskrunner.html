@@ -6,14 +6,16 @@
     <script src="static/vue-2.1.10/vue.js"></script>
     <script src="static/vue-resource-1.0.3/vue-resource.min.js"></script>
     <script src="static/ansi_up-1.3.0/ansi_up.js"></script>
+    <link rel="stylesheet" href="static/normalize.css-v5.0.0/normalize.css"/>
     <link rel="stylesheet" href="static/css/app.css"/>
     <link rel="stylesheet" href="static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|PT+Mono" rel="stylesheet">
 </head>
 <body>
 
 <script id="executor" type="text/x-template">
     <div class="executor">
-        <span v-text="data.name"></span> - <span v-text="data.status"></span>
+        <span class="name" v-text="data.name"></span> - <span class="status" v-text="data.status"></span>
         <span class="error" v-if="data.error">ERROR: {{data.error}} </span>
         <div class="output" v-html="htmlCarriageReturn(ansiUp(data.combinedOutput))"></div>
     </div>
@@ -36,22 +38,33 @@
 <h4>webtaskrunner</h4>
 
 <div id="taskrunner">
-    <h2>Tasks</h2>
-    <ul class="tasklist">
-        <li v-for="(task,index) in tasks"
-            :key="index">
-            <task :data="task"></task>
+    <h3>Integrations</h3>
+    <ul class="integrationList">
+        <li v-for="integrationName in integrationNames" :key="integrationName">
+            {{integrationName}}
         </li>
     </ul>
-    <h4>execution output</h4>
-    <ul>
-        <li v-for="(executor,index) in executors"
-            :key="index"
-            v-show="focusedExecutor==executor"
-        >
-            <executor :data="executor"></executor>
-        </li>
-    </ul>
+    <div class="task-pane">
+        <h4>Tasks</h4>
+        <ul class="tasklist">
+            <li v-for="(task,index) in tasks"
+                :key="index">
+                <task :data="task"></task>
+            </li>
+        </ul>
+    </div>
+
+    <div class="output-pane">
+        <h4>Execution output</h4>
+        <ul>
+            <li v-for="(executor,index) in executors"
+                :key="index"
+                v-show="focusedExecutor==executor"
+            >
+                <executor :data="executor"></executor>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <script src="static/js/taskrunner.js"></script>

@@ -8,7 +8,7 @@ Vue.component('executor', {
         run: function () {
             this.data.status = "running";
             var self = this;
-            var connection = new WebSocket('ws:' + location.host + location.pathname + '/cmd', ['chat']);
+            var connection = new WebSocket('ws:' + location.host + '/' + this.data.integrationName + '/cmd');
             // When the connection is open, send some data to the server
             connection.onopen = function () {
                 connection.send(self.data.taskName);
@@ -56,6 +56,7 @@ Vue.component('task', {
             var newExecutor = {
                 name: this.data.TaskName,
                 taskName: this.data.TaskName,
+                integrationName: this.data.IntegrationName,
                 combinedOutput: "",
                 status: "",
                 error: "",
@@ -73,23 +74,27 @@ new Vue({
     el: '#taskrunner',
     data: {
         tasks: [],
+        integrationNames: {},
         executors: [],
         focusedExecutor: null,
     },
     created: function () {
-        this.$http.get(location.pathname + '/tasks')
-            .then(function (response) {
-                if (response.ok) {
-                    var tasks = response.body;
-                    for (k in tasks) {
-                        var newTask = tasks[k];
-                        newTask.executor = null;
-                        this.tasks.push(newTask);
-                    }
-                } else {
-                    console.log("error while receiving task list");
-                }
-            });
+        var self = this;
+        var connection = new WebSocket('ws:' + location.host + '/tasklist');
+        connection.onerror = function (error) {
+            console.log('WebSocket Error ' + error);
+        };
+
+        connection.onmessage = function (e) {
+            var taskInfo = JSON.parse(e.data);
+            taskInfo.executor = null;
+            self.$data.tasks.push(taskInfo);
+            Vue.set(self.$data.integrationNames, taskInfo.IntegrationName, taskInfo.IntegrationName);
+        };
+
+        connection.onclose = function (e) {
+            console.log("ALL TASKS LOAD");
+        };
     },
     methods: {
         showExecutor: function (executor) {
