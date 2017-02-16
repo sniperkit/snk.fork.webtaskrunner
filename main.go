@@ -26,10 +26,18 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// add custom integrations here, and in integrations package of course
-	addIntegration(conf.Integrations.Ant.FrontendInfo, integrations.NewAntIntegration(conf.Integrations.Ant))
-	addIntegration(conf.Integrations.Gradle.FrontendInfo, integrations.NewGradleIntegration(conf.Integrations.Gradle))
-	addIntegration(conf.Integrations.Grunt.FrontendInfo, integrations.NewGruntIntegration(conf.Integrations.Grunt))
-	addIntegration(conf.Integrations.Gulp.FrontendInfo, integrations.NewGulpIntegration(conf.Integrations.Gulp))
+	if conf.Integrations.Ant != nil {
+		addIntegration(conf.Integrations.Ant.FrontendInfo, integrations.NewAntIntegration(conf.Integrations.Ant))
+	}
+	if conf.Integrations.Gradle != nil {
+		addIntegration(conf.Integrations.Gradle.FrontendInfo, integrations.NewGradleIntegration(conf.Integrations.Gradle))
+	}
+	if conf.Integrations.Grunt != nil {
+		addIntegration(conf.Integrations.Grunt.FrontendInfo, integrations.NewGruntIntegration(conf.Integrations.Grunt))
+	}
+	if conf.Integrations.Gulp != nil {
+		addIntegration(conf.Integrations.Gulp.FrontendInfo, integrations.NewGulpIntegration(conf.Integrations.Gulp))
+	}
 
 	http.Handle("/taskrunners", taskrunnerlisthandler.New(frontendConfigs))
 
