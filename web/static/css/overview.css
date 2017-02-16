@@ -20,6 +20,10 @@
     border: 2px solid black;
     padding: 20px;
 
+    cursor: pointer;
+    cursor: hand;
+
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffc578+0,fb9d23+100;Orange+3D+%233 */
     background: rgb(255, 197, 120); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(255, 197, 120, 1) 0%, rgba(251, 157, 35, 1) 100%); /* FF3.6-15 */
@@ -34,6 +38,7 @@
 }
 
 .taskrunner {
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f4ee9c+0,0e0e0e+100&0.65+0,0+75 */
     background: -moz-radial-gradient(center, ellipse cover, rgba(244, 238, 156, 0.65) 0%, rgba(72, 70, 50, 0) 75%, rgba(14, 14, 14, 0) 100%); /* FF3.6-15 */
     background: -webkit-radial-gradient(center, ellipse cover, rgba(244, 238, 156, 0.65) 0%, rgba(72, 70, 50, 0) 75%, rgba(14, 14, 14, 0) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -45,4 +50,13 @@
 .taskrunner img {
     width: auto;
     height: 160px;
+}
+
+.taskrunner .label {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
 }

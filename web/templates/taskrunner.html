@@ -20,18 +20,16 @@
 </script>
 
 <script id="task" type="text/x-template">
-    <li>
+    <div class="task" v-on:click="showExecutor()"
+         v-bind:class="{'hasExecutor':(data.executor!=null), 'selected':((data.executor)?data.executor.isSelected:false), 'running':((data.executor)?data.executor.status=='running':false)}">
         <span class="name" v-text="data.name"></span>
         <span class="controls">
-            <i class="fa fa-play" aria-hidden="true" v-on:click="run()"></i>
-            <span v-if="data.executor != null">
-            <i class="fa fa-indent" aria-hidden="true" v-on:click="showExecutor()"></i>
-                <span v-bind:class="data.executor.status">
+            <i class="fa fa-play" aria-hidden="true" v-on:click="run()" title="start task"></i>
+            <span v-if="data.executor != null" v-bind:class="data.executor.status" class="status">
                     <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </span>
-            </span>
         </span>
-    </li>
+    </div>
 </script>
 
 <h4>webtaskrunner</h4>
@@ -39,10 +37,10 @@
 <div id="taskrunner">
     <h2>Tasks</h2>
     <ul class="tasklist">
-        <task v-for="(task,index) in tasks"
-              :key="index"
-              :data="task"
-        ></task>
+        <li v-for="(task,index) in tasks"
+            :key="index">
+            <task :data="task"></task>
+        </li>
     </ul>
     <h4>execution output</h4>
     <ul>

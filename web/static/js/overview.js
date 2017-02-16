@@ -2,9 +2,7 @@ Vue.component('taskrunner', {
     props: ['data'],
     template: '#taskrunner',
     methods: {
-        navigateTo: function (targetPath) {
-            location.href = targetPath;
-        }
+
     }
 });
 
@@ -31,5 +29,10 @@ new Vue({
                     console.log("error while receiving task list");
                 }
             });
+    },
+    methods: {
+        navigateTo: function (targetPath) {
+            location.href = targetPath;
+        }
     }
 });

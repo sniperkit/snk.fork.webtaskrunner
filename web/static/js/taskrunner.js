@@ -50,6 +50,7 @@ Vue.component('task', {
     },
     methods: {
         showExecutor: function () {
+            this.data.executor.isSelected = true;
             this.$parent.showExecutor(this.data.executor);
         },
         run: function () {
@@ -59,8 +60,10 @@ Vue.component('task', {
                 combinedOutput: "",
                 status: "",
                 error: "",
+                isSelected: false,
             };
             this.data.executor = newExecutor;
+            this.data.executor.isSelected = true;
             this.$parent.startExecutor(newExecutor);
             this.$parent.showExecutor(this.data.executor);
         }
@@ -93,6 +96,13 @@ new Vue({
     },
     methods: {
         showExecutor: function (executor) {
+
+            for (var k in this.$data.executors) {
+                var currentExecutor = this.$data.executors[k];
+                if (executor != currentExecutor) {
+                    currentExecutor.isSelected = false;
+                }
+            }
             this.focusedExecutor = executor;
         },
         startExecutor: function (executor) {

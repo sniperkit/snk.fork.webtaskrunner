@@ -14,17 +14,18 @@
 <h4>webtaskrunner</h4>
 
 <script id="taskrunner" type="text/x-template">
-    <div class="taskrunner" :title="data.name" v-on:click="navigateTo(data.route)">
+    <div class="taskrunner" :title="data.name">
         <img :src="data.imageUrl"/>
+        <span class="label">{{data.name}}</span>
     </div>
 </script>
 
 
 <div id="overview">
-
     <ul>
         <li v-for="(taskrunner,index) in taskrunners"
-            :key="index">
+            :key="index"
+            v-on:click="navigateTo(taskrunner.route)">
             <taskrunner
                     :data="taskrunner"
             ></taskrunner>

@@ -1,5 +1,5 @@
 ul.tasklist {
-    width: 75em;
+    width: 100%;
     list-style-type: none;
 }
 
@@ -16,10 +16,6 @@ ul.tasklist:after {
     clear: both;
 }
 
-ul.tasklist li + li {
-    margin-top: 0.1em;
-}
-
 /* anchor styling */
 ul.tasklist li a {
     display: block;
@@ -33,11 +29,24 @@ ul.tasklist li a:hover {
 }
 
 .done .fa-dot-circle-o {
-    color: green;
+    color: #38cc38;
 }
 
 .running .fa-dot-circle-o {
     color: orange;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        color: orange;
+    }
+    50% {
+        color: #bd8c3e;
+    }
+    100% {
+        color: orange;
+    }
 }
 
 .done-error .fa-dot-circle-o {
@@ -50,30 +59,51 @@ ul.tasklist .fa-play,
     cursor: hand;
 }
 
+.fa.fa-dot-circle-o,
+.fa.fa-play {
+    font-size: 30px;
+}
+
+.fa.fa-dot-circle-o {
+    border: 1px solid rgba(0, 0, 0, 0.34);
+    border-radius: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    background-color: rgba(255, 255, 255, 0.88);
+}
+
+.fa.fa-play {
+    background: white;
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.34);
+    padding-left: 13px;
+    padding-right: 6px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.task .status {
+    margin-left: 3px;
+}
+
 ul.tasklist li {
     position: relative;
 }
 
 .tasklist .name {
-    width: 15em;
+    width: 12em;
     display: inline-block;
 }
 
 .tasklist .controls {
+    margin-top: -10px;
     display: inline-block;
     position: absolute;
     right: 0;
-    width: 5em;
-}
-
-ul.tasklist li {
-    color: #000;
-    transition: background 0.5s linear;
-}
-
-ul.tasklist li:hover {
-    background-color: #d1d1d1;
-    color: #fff;
+    width: 6em;
 }
 
 .executor .error {
@@ -84,4 +114,32 @@ ul.tasklist li:hover {
 .executor .output {
     font-family: Courier New;
     font-size: 12px;
+}
+
+.task {
+    margin-top: 3px;
+
+    padding: 20px;
+    border: 1px solid black;
+    color: #000;
+    transition: background 0.5s linear;
+
+    background-color: white;
+
+}
+
+.task.hasExecutor:hover {
+
+}
+
+.task.selected {
+    background-color: black;
+}
+
+.task.selected .name {
+    color: #fff;
+}
+
+.task.running .fa.fa-play {
+    visibility: hidden;
 }
