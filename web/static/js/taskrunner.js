@@ -1,4 +1,3 @@
-
 Vue.component('executor', {
     props: ['data'],
     template: '#executor',
@@ -55,8 +54,8 @@ Vue.component('task', {
         },
         run: function () {
             var newExecutor = {
-                name: this.data.name,
-                taskName: this.data.name,
+                name: this.data.TaskName,
+                taskName: this.data.TaskName,
                 combinedOutput: "",
                 status: "",
                 error: "",
@@ -83,10 +82,8 @@ new Vue({
                 if (response.ok) {
                     var tasks = response.body;
                     for (k in tasks) {
-                        var newTask = {
-                            name: tasks[k],
-                            executor: null,
-                        };
+                        var newTask = tasks[k];
+                        newTask.executor = null;
                         this.tasks.push(newTask);
                     }
                 } else {

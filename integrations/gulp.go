@@ -37,7 +37,7 @@ func (i *GulpIntegration) PrepareCommand(taskName string) *exec.Cmd {
 }
 
 //GetTaskList returns as list of tasks
-func (i *GulpIntegration) GetTaskList() []string {
+func (i *GulpIntegration) GetTaskList() []TaskInfo {
 	cmd := exec.Command("gulp", "--tasks-simple")
 	cmd.Dir = i.config.ExecutionDir
 	stdOutBytes, err := cmd.Output()
@@ -45,12 +45,17 @@ func (i *GulpIntegration) GetTaskList() []string {
 		panic(err)
 	}
 
-	targets := []string{}
+	taskInfoList := []TaskInfo{}
 	scanner := bufio.NewScanner(bytes.NewBuffer(stdOutBytes))
 	for scanner.Scan() {
 		stdOutLine := scanner.Text()
-		targets = append(targets, strings.Trim(stdOutLine, " "))
+		taskInfo := TaskInfo{
+			TaskName:        strings.Trim(stdOutLine, " "),
+			Description:     "",
+			IntegrationName: "gulp",
+		}
+		taskInfoList = append(taskInfoList, taskInfo)
 	}
 
-	return targets
+	return taskInfoList
 }

@@ -27,25 +27,26 @@ func (i *GradleIntegration) PrepareCommand(taskName string) *exec.Cmd {
 }
 
 //GetTaskList returns as list of tasks
-func (i *GradleIntegration) GetTaskList() []string {
+func (i *GradleIntegration) GetTaskList() []TaskInfo {
 	stdOutBytes, err := exec.Command("gradle", "tasks").Output()
 
 	if err != nil {
 		panic(err)
 	}
 
-	targets := []string{}
+	taskInfoList := []TaskInfo{}
 	scanner := bufio.NewScanner(bytes.NewBuffer(stdOutBytes))
 	for scanner.Scan() {
 		stdOutLine := scanner.Text()
 
 		taskInfo := i.extractTaskInfo(stdOutLine)
 		if taskInfo != nil {
-			targets = append(targets, taskInfo.TaskName)
+			taskInfo.IntegrationName = "gradle"
+			taskInfoList = append(taskInfoList, *taskInfo)
 		}
 	}
 
-	return targets
+	return taskInfoList
 }
 
 func (i *GradleIntegration) extractTaskInfo(s string) *TaskInfo {

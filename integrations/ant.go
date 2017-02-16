@@ -28,14 +28,14 @@ func (i *AntIntegration) PrepareCommand(taskName string) *exec.Cmd {
 }
 
 //GetTaskList returns as list of tasks
-func (i *AntIntegration) GetTaskList() []string {
+func (i *AntIntegration) GetTaskList() []TaskInfo {
 	stdOutBytes, err := exec.Command("ant", "-p", "build.xml").Output()
 
 	if err != nil {
 		panic(err)
 	}
 
-	targets := []string{}
+	taskInfoList := []TaskInfo{}
 	scanner := bufio.NewScanner(bytes.NewBuffer(stdOutBytes))
 	for scanner.Scan() {
 		stdOutLine := scanner.Text()
@@ -53,8 +53,13 @@ func (i *AntIntegration) GetTaskList() []string {
 			continue
 		}
 
-		targets = append(targets, strings.Trim(stdOutLine, " "))
+		taskInfo := TaskInfo{
+			TaskName:        strings.Trim(stdOutLine, " "),
+			Description:     "",
+			IntegrationName: "ant",
+		}
+		taskInfoList = append(taskInfoList, taskInfo)
 	}
 
-	return targets
+	return taskInfoList
 }

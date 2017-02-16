@@ -39,24 +39,24 @@ func (i *GruntIntegration) PrepareCommand(taskName string) *exec.Cmd {
 }
 
 //GetTaskList returns as list of tasks
-func (i *GruntIntegration) GetTaskList() []string {
+func (i *GruntIntegration) GetTaskList() []TaskInfo {
 	gruntFileFlag, gruntFilePath := i.getGruntFileParameters()
 	cmd := exec.Command("grunt", gruntFileFlag, gruntFilePath, "--help")
 	cmd.Dir = i.config.ExecutionDir
 	stdOutBytes, err := cmd.Output()
 	if err != nil {
 		fmt.Println(string(stdOutBytes))
-		return []string{}
+		return []TaskInfo{}
 	}
-	targets := i.scanTasksFromOutput(stdOutBytes)
+	taskInfoList := i.scanTasksFromOutput(stdOutBytes)
 
-	return targets
+	return taskInfoList
 }
 
-func (i *GruntIntegration) scanTasksFromOutput(stdOutBytes []byte) []string {
+func (i *GruntIntegration) scanTasksFromOutput(stdOutBytes []byte) []TaskInfo {
 
 	bScanTasks := false
-	targets := []string{}
+	taskInfoList := []TaskInfo{}
 	scanner := bufio.NewScanner(bytes.NewBuffer(stdOutBytes))
 	for scanner.Scan() {
 		stdOutLine := scanner.Text()
@@ -71,13 +71,14 @@ func (i *GruntIntegration) scanTasksFromOutput(stdOutBytes []byte) []string {
 			} else {
 				taskInfo := i.parseTaskInfo(stdOutLine)
 				if taskInfo != nil {
-					targets = append(targets, taskInfo.TaskName)
+					taskInfo.IntegrationName = "grunt"
+					taskInfoList = append(taskInfoList, *taskInfo)
 				}
 			}
 		}
 	}
 
-	return targets
+	return taskInfoList
 }
 
 func (i *GruntIntegration) parseTaskInfo(s string) *TaskInfo {
