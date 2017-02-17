@@ -32,6 +32,11 @@ h4 {
     max-height: 800px;
 }
 
+.output-pane ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
 ul.tasklist, .output {
     max-height: 700px;
     max-width: 100%;
@@ -165,6 +170,9 @@ ul.tasklist li {
 .executor .output {
     font-family: 'PT Mono', monospace;
     font-size: 14px;
+    background: black;
+    padding: 10px;
+    color: #fff;
 }
 
 .executor .name {
