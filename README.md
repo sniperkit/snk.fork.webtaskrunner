@@ -6,6 +6,8 @@ Webtaskrunner is intended to help you during development by letting you execute 
 
 Set it up in your vagrant devbox or docker container and execute some tasks when needed.
 
+![alt tag](https://raw.githubusercontent.com/Oppodelldog/webtaskrunner/master/screenshot.png)
+
 ####Startup
 Startup the server on port :8080 with
 
