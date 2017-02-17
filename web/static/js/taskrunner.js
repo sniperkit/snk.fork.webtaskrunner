@@ -74,7 +74,7 @@ new Vue({
     el: '#taskrunner',
     data: {
         tasks: [],
-        integrationNames: {},
+        integrations: {},
         executors: [],
         focusedExecutor: null,
     },
@@ -89,14 +89,34 @@ new Vue({
             var taskInfo = JSON.parse(e.data);
             taskInfo.executor = null;
             self.$data.tasks.push(taskInfo);
-            Vue.set(self.$data.integrationNames, taskInfo.IntegrationName, taskInfo.IntegrationName);
+            Vue.set(self.$data.integrations, taskInfo.IntegrationName, {
+                "name": taskInfo.IntegrationName,
+                "selected": true
+            });
         };
 
         connection.onclose = function (e) {
             console.log("ALL TASKS LOAD");
         };
     },
+    computed: {
+        filteredTasks: function () {
+            var self = this;
+            var filteredTasks = this.$data.tasks.filter(function (task) {
+                return self.$data.integrations[task.IntegrationName].selected;
+            });
+            filteredTasks.sort(function (a, b) {
+                if (a.TaskName < b.TaskName) return -1;
+                if (a.TaskName > b.TaskName) return 1;
+                return 0;
+            });
+            return filteredTasks;
+        }
+    },
     methods: {
+        toggleIntegrationFilter: function (integration) {
+            integration.selected = !integration.selected;
+        },
         showExecutor: function (executor) {
 
             for (var k in this.$data.executors) {

@@ -183,6 +183,7 @@ ul.tasklist li {
 .executor .status {
     font-size: 16px;
 }
+
 .task {
     position: relative;
     min-height: 40px;
@@ -212,4 +213,39 @@ ul.tasklist li {
 
 .task.running .fa.fa-play {
     visibility: hidden;
+}
+
+ul.integrationList {
+    list-style-type: none;
+}
+
+ul.integrationList:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+ul.integrationList li {
+    float: left;
+    cursor: hand;
+    cursor: pointer;
+}
+
+ul.integrationList li + li {
+    margin-left: 20px;
+}
+
+.integration-filter {
+    border: 1px solid #9f9f9f;
+    border-radius: 25%;
+    padding: 3px 8px;
+    font-weight: bold;
+    color: #bfbfbf;
+    transition: color 0.37s linear;
+    transition: border-color 0.37s linear;
+}
+
+.integration-filter.selected {
+    color: black;
+    border-color: black;
 }
