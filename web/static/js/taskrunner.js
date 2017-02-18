@@ -49,8 +49,10 @@ Vue.component('task', {
     },
     methods: {
         showExecutor: function () {
-            this.data.executor.isSelected = true;
-            this.$parent.showExecutor(this.data.executor);
+            if (this.data.executor != null) {
+                this.data.executor.isSelected = true;
+                this.$parent.showExecutor(this.data.executor);
+            }
         },
         run: function () {
             var newExecutor = {
@@ -77,6 +79,7 @@ new Vue({
         integrations: {},
         executors: [],
         focusedExecutor: null,
+        textFilter: "",
     },
     created: function () {
         var self = this;
@@ -103,7 +106,9 @@ new Vue({
         filteredTasks: function () {
             var self = this;
             var filteredTasks = this.$data.tasks.filter(function (task) {
-                return self.$data.integrations[task.IntegrationName].selected;
+                var integrationIsSelected = self.$data.integrations[task.IntegrationName].selected;
+                var taskNameContainsFilter = task.TaskName.indexOf(self.$data.textFilter) > -1;
+                return integrationIsSelected && taskNameContainsFilter;
             });
             filteredTasks.sort(function (a, b) {
                 if (a.TaskName < b.TaskName) return -1;
@@ -118,7 +123,6 @@ new Vue({
             integration.selected = !integration.selected;
         },
         showExecutor: function (executor) {
-
             for (var k in this.$data.executors) {
                 var currentExecutor = this.$data.executors[k];
                 if (executor != currentExecutor) {

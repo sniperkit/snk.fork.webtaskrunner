@@ -1,3 +1,21 @@
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #dedede;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #dedede;
+    opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #dedede;
+    opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #dedede;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
@@ -6,10 +24,12 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
+    padding-left: 10px;
 }
 
 h4 {
     border-bottom: 1px solid black;
+    margin-bottom: 0;
 }
 
 .task-pane,
@@ -25,6 +45,7 @@ h4 {
 .task-pane {
     width: 49vw;
     max-height: 800px;
+    border-right: 1px solid black;
 }
 
 .output-pane {
@@ -215,7 +236,30 @@ ul.tasklist li {
     visibility: hidden;
 }
 
+.build-tools:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+ul.integrationList,
+.text-filter {
+    float: left
+}
+
+.text-filter {
+    margin-top: -10px;
+}
+
+.text-filter input {
+    border-width: 0 0 1px 0;
+    border-color: black;
+    margin-left: 60px;
+    outline: none;
+    font-size: 26px;
+}
 ul.integrationList {
+    margin-top: 0;
     list-style-type: none;
 }
 

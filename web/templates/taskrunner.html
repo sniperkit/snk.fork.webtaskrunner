@@ -38,15 +38,20 @@
 <h4>webtaskrunner</h4>
 
 <div id="taskrunner">
-    <h3>Integrations</h3>
-    <ul class="integrationList">
-        <li v-for="(integration,index) in integrations" :key="index">
+    <h3>Build-Tools</h3>
+    <div class="build-tools">
+        <ul class="integrationList">
+            <li v-for="(integration,index) in integrations" :key="index">
             <span class="integration-filter" v-on:click="toggleIntegrationFilter(integration)"
                   v-bind:class="(integration.selected)?'selected':''">
             {{integration.name}}
                 </span>
-        </li>
-    </ul>
+            </li>
+        </ul>
+        <span class="text-filter">
+        <input type="text" v-model="textFilter" placeholder="filter tasks by name"/>
+    </span>
+    </div>
     <div class="task-pane">
         <h4>Tasks</h4>
         <ul class="tasklist">
