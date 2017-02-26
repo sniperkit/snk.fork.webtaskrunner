@@ -1,0 +1,33 @@
+FROM ubuntu:16.04
+
+# Define working directory.
+WORKDIR /web
+
+#
+# Install node
+#
+RUN \
+    apt-get update && \
+    apt-get install -y nodejs-legacy && \
+    apt-get install -y npm
+
+#
+# configure node
+#
+RUN mkdir /.npm && chown 1000:1000 /.npm
+
+#
+# Install grunt
+#
+ADD provision/package.json /node_build_tools/package.json
+ADD provision/Gruntfile.js /node_build_tools/Gruntfile.js
+RUN \
+    npm install -g grunt && \
+    npm install -g grunt-cli && \
+    cd /node_build_tools && \
+    npm install grunt && \
+    npm install grunt-exec
+
+
+# Define default command.
+CMD ["bash"]
