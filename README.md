@@ -8,7 +8,10 @@ Set it up in your vagrant devbox or docker container and execute some tasks when
 
 ![alt tag](https://raw.githubusercontent.com/Oppodelldog/webtaskrunner/master/screenshot.png)
 
-####Startup
+#### Preparations
+    move to web/static and install dependencies via npm install
+    
+#### Startup
 Startup the server on port :8080 with
 
     go run main.go
@@ -20,7 +23,7 @@ The appropriate build files must reside in the working directory of the applicat
 For gulp and grunt the location of the buildfile can be configured in webtaskrunner.yaml.
 
 
-####Add custom integrations:
+#### Add custom integrations:
 Is there a build tool, that is yet not supported?
 
 * add a go file in integrations folder, implement the 'integration' interface.
