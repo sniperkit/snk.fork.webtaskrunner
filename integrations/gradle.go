@@ -20,15 +20,24 @@ type GradleIntegration struct {
 	config *config.GradleConfig
 }
 
+func (i *GradleIntegration) getGradleFileParameters() (string, string) {
+	if i.config.ExecutionDir != "" {
+		return "--project-dir", i.config.ExecutionDir
+	}
+	return "", ""
+}
+
 //PrepareCommand prepares an exec.Cmd so that it will start the given task when executed
 func (i *GradleIntegration) PrepareCommand(taskName string) *exec.Cmd {
-	cmd := exec.Command("gradle", taskName)
+	gradleProjectDirFlag, gradleProjectDir := i.getGradleFileParameters()
+	cmd := exec.Command("gradle", gradleProjectDirFlag, gradleProjectDir, taskName)
 	return cmd
 }
 
 //GetTaskList returns as list of tasks
 func (i *GradleIntegration) GetTaskList() []TaskInfo {
-	stdOutBytes, err := exec.Command("gradle", "tasks").Output()
+	gradleProjectDirFlag, gradleProjectDir := i.getGradleFileParameters()
+	stdOutBytes, err := exec.Command("gradle", gradleProjectDirFlag, gradleProjectDir, "tasks").Output()
 
 	if err != nil {
 		panic(err)
