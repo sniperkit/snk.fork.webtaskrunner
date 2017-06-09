@@ -28,6 +28,7 @@ type AntConfig struct {
 //GradleConfig is part of the webtaskrunner configuration and contains all gradle specific settings
 type GradleConfig struct {
 	FrontendInfo *FrontendInfo `yaml:"frontend"`
+	ExecutionDir string        `yaml:"execution_dir"`
 }
 
 //GruntConfig is part of the webtaskrunner configuration and contains all grunt specific settings
