@@ -1,14 +1,20 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package main
 
 import (
 	"fmt"
-	"github.com/Oppodelldog/webtaskrunner/config"
-	"github.com/Oppodelldog/webtaskrunner/handler/commandhandler"
-	"github.com/Oppodelldog/webtaskrunner/handler/taskshandler"
-	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"io/ioutil"
 	"net/http"
 	"os"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/config"
+	"github.com/sniperkit/snk.fork.webtaskrunner/handler/commandhandler"
+	"github.com/sniperkit/snk.fork.webtaskrunner/handler/taskshandler"
+	"github.com/sniperkit/snk.fork.webtaskrunner/integrations"
 )
 
 var frontendConfigs = []*config.FrontendInfo{}

@@ -1,3 +1,8 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 module.exports = function(grunt) {
 
   // Project configuration.

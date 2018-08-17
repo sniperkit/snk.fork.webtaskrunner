@@ -1,3 +1,8 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
 //TaskInfo holds information about discovered tasks

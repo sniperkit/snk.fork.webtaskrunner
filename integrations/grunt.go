@@ -1,14 +1,20 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
 import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"path"
 	"regexp"
 	"strings"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/config"
 )
 
 //NewGruntIntegration returns a new instance of the grunt integration wrapper.

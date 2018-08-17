@@ -1,3 +1,8 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package config
 
 //Config represents the configuration defined in webtaskrunner.yaml

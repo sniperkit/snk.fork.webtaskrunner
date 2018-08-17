@@ -1,11 +1,17 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
 import (
 	"bufio"
 	"bytes"
-	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"regexp"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/config"
 )
 
 //NewGradleIntegration returns a new instance of the Gradle integration wrapper.

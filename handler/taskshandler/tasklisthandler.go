@@ -1,11 +1,18 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package taskshandler
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"golang.org/x/net/websocket"
 	"net/http"
+
+	"golang.org/x/net/websocket"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/integrations"
 )
 
 // New returns a new instance of TaskListWebSocketHandler

@@ -1,6 +1,13 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
-import "os/exec"
+import (
+	"os/exec"
+)
 
 //Integration defines the interface of a build system integration
 type Integration interface {

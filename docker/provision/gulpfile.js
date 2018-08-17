@@ -1,3 +1,8 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 // including plugins
 var gulp = require('gulp');
 var exec = require('child_process').exec;

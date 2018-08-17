@@ -1,9 +1,15 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package execution
 
 import (
 	"bytes"
-	"github.com/Oppodelldog/webtaskrunner/integrations"
 	"os/exec"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/integrations"
 )
 
 // ExecuteTask executes the given taskName using the given integration

@@ -1,3 +1,8 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 Vue.component('executor', {
     props: ['data'],
     template: '#executor',

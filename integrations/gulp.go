@@ -1,12 +1,18 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
 import (
 	"bufio"
 	"bytes"
-	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"path"
 	"strings"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/config"
 )
 
 //NewGulpIntegration returns a new instance of the gulp integration wrapper.

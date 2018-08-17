@@ -1,14 +1,21 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package commandhandler
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/Oppodelldog/webtaskrunner/execution"
-	"github.com/Oppodelldog/webtaskrunner/integrations"
-	"golang.org/x/net/websocket"
 	"log"
 	"net/http"
+
+	"golang.org/x/net/websocket"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/execution"
+	"github.com/sniperkit/snk.fork.webtaskrunner/integrations"
 )
 
 // New returns a new instance of WebSocketHandler

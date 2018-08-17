@@ -1,12 +1,18 @@
+/*
+Sniperkit-Bot
+- Status: analyzed
+*/
+
 package integrations
 
 import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/Oppodelldog/webtaskrunner/config"
 	"os/exec"
 	"strings"
+
+	"github.com/sniperkit/snk.fork.webtaskrunner/config"
 )
 
 //NewAntIntegration returns a new instance of the ant integration wrapper.
